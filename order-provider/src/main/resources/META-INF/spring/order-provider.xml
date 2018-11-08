@@ -10,7 +10,11 @@
     <!--<dubbo:monitor protocol="registry"/>-->
 
     <!--dubbo这个服务所要暴露的服务地址所对应的注册中心-->
+    <!--如果加上subscribe="false" 则只订阅，不提供服务，zookeeper中会生成节点-->
     <dubbo:registry protocol="zookeeper" address="192.168.109.128:2181,192.168.109.129:2181,192.168.109.130:2181,192.168.109.131:2181"/>
+
+    <!--可以支持多个注册中心，很少用-->
+    <!--<dubbo:registry protocol="zookeeper" address="192.168.109.131:2181"/>-->
 
     <!--当前服务发布所依赖的协议；webserovice、Thrift、Hessain、http-->
     <dubbo:protocol name="dubbo" port="20880"/>
@@ -21,9 +25,13 @@
     <!--服务发布的配置，需要暴露的服务接口-->
     <dubbo:service
             interface="com.drafire.IOrderServices"
-            ref="orderService" protocol="hessian,dubbo"/>  <!--如果支持多协议，需要指定协议-->
+            ref="orderService1" protocol="hessian" version="1.0.0"/>  <!--如果支持多协议，需要指定协议，这里还可以指定注册中心-->
 
     <!--Bean bean定义-->
-    <bean id="orderService" class="com.drafire.OrderServiceImpl"/>
+    <bean id="orderService1" class="com.drafire.OrderServiceImpl"/>
+
+    <dubbo:service interface="com.drafire.IOrderServices" ref="orderService2" timeout="5000" protocol="hessian,dubbo" version="2.0.0"/>
+
+    <bean id="orderService2" class="com.drafire.OrderServiceImpl2"/>
 
 </beans>
