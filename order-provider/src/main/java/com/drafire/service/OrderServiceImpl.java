@@ -1,6 +1,12 @@
-package com.drafire;
+package com.drafire.service;
 
-public class OrderServiceImpl implements IOrderServices{
+import com.drafire.DoOrderRequest;
+import com.drafire.DoOrderResponse;
+import com.drafire.IOrderServices;
+import org.springframework.stereotype.Service;
+
+@Service("orderService1")
+public class OrderServiceImpl implements IOrderServices {
 
 
     public DoOrderResponse doOrder(DoOrderRequest request) {

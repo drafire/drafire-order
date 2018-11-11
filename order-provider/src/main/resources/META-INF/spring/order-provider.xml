@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--当前项目在整个分布式架构里面的唯一名称，计算依赖关系的标签-->
     <dubbo:application name="order-provider" owner="drafire"/>
@@ -11,7 +12,7 @@
 
     <!--dubbo这个服务所要暴露的服务地址所对应的注册中心-->
     <!--如果加上subscribe="false" 则只订阅，不提供服务，zookeeper中会生成节点-->
-    <dubbo:registry protocol="zookeeper" address="192.168.109.128:2181,192.168.109.129:2181,192.168.109.130:2181,192.168.109.131:2181"/>
+    <dubbo:registry protocol="zookeeper" address="192.168.141.128:2181,192.168.141.129:2181,192.168.141.130:2181,192.168.141.131:2181"/>
 
     <!--可以支持多个注册中心，很少用-->
     <!--<dubbo:registry protocol="zookeeper" address="192.168.109.131:2181"/>-->
@@ -27,11 +28,11 @@
             interface="com.drafire.IOrderServices"
             ref="orderService1" protocol="hessian" version="1.0.0"/>  <!--如果支持多协议，需要指定协议，这里还可以指定注册中心-->
 
-    <!--Bean bean定义-->
-    <bean id="orderService1" class="com.drafire.OrderServiceImpl"/>
-
     <dubbo:service interface="com.drafire.IOrderServices" ref="orderService2" timeout="5000" protocol="hessian,dubbo" version="2.0.0"/>
+    <!--导入user-api的jar包文件-->
+    <import resource="classpath*:META-INF/client/User-Custom.xml"/>
 
-    <bean id="orderService2" class="com.drafire.OrderServiceImpl2"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="com.drafire.service"/>
 
 </beans>

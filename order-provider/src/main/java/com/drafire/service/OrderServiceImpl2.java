@@ -1,7 +1,13 @@
-package com.drafire;
+package com.drafire.service;
+
+import com.drafire.DoOrderRequest;
+import com.drafire.DoOrderResponse;
+import com.drafire.IOrderServices;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+@Service("orderService2")
 public class OrderServiceImpl2 implements IOrderServices {
     @Override
     public DoOrderResponse doOrder(DoOrderRequest request) throws InterruptedException {
