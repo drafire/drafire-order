@@ -51,18 +51,6 @@
             <version>4.3.10.RELEASE</version>
         </dependency>
         <!--spring包管理结束-->
-
-        <dependency>
-            <groupId>com.drafire</groupId>
-            <artifactId>order-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.drafire</groupId>
-            <artifactId>drafire-user-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <!--支持dubbo需要的jar包开始-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -92,6 +80,11 @@
         </dependency>
         <!--支持hessian协议需要的jar包介绍-->
 
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.15.0</version>
+        </dependency>
     </dependencies>
 
     <build>
